@@ -1,8 +1,8 @@
 # The Linux Programming Interface - Learning Test Code Project
 
-[![CI](https://github.com/yourusername/the-linux-programming-interface/workflows/CI/badge.svg)](https://github.com/yourusername/the-linux-programming-interface/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS-blue.svg)](https://github.com/yourusername/the-linux-programming-interface)
+[![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS-blue.svg)](https://github.com/{username}/{repository})
+
 
 ## Project Introduction
 
