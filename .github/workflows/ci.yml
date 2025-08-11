@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        compiler: [gcc, clang]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up environment
+      run: |
+        if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
+          sudo apt-get update
+          sudo apt-get install -y build-essential
+        fi
+
+    - name: Set compiler
+      run: |
+        if [ "${{ matrix.compiler }}" = "clang" ]; then
+          echo "CC=clang" >> $GITHUB_ENV
+          echo "CXX=clang++" >> $GITHUB_ENV
+        else
+          echo "CC=gcc" >> $GITHUB_ENV
+          echo "CXX=g++" >> $GITHUB_ENV
+        fi
+
+    - name: Build TLPI library
+      run: |
+        cd tlpi
+        make clean
+        make
+
+    - name: Build demo programs
+      run: |
+        cd demo
+        make clean
+        make
+
+    - name: Build file I/O examples
+      run: |
+        cd src/fileio
+        make clean
+        make
+
+    - name: Build process examples
+      run: |
+        cd src/procexec
+        make clean
+        make
+
+    - name: Build signal examples
+      run: |
+        cd src/signals
+        make clean
+        make
+
+    - name: Build thread examples
+      run: |
+        cd src/threads
+        make clean
+        make
+
+    - name: Check for build artifacts
+      run: |
+        echo "Checking build artifacts..."
+        ls -la tlpi/*.a
+        ls -la demo/*.o
+        ls -la src/fileio/*.o
+        ls -la src/procexec/*.o
+        ls -la src/signals/*.o
+        ls -la src/threads/*.o
